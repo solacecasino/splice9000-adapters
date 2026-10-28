@@ -164,7 +164,7 @@ def render(adapters: list[dict]) -> str:
         "computer, then **drop it on the splice9000 window**. splice9000 shows what an adapter can do and",
         "asks before installing it. Remove it any time from the Adapters panel.",
         "",
-        f"**{len(adapters)} adapters** · " + " · ".join(f"[{c}](#{c.lower().replace(' ', '-')})" for c in categories)
+        f"**{len(adapters)} adapter{'' if len(adapters) == 1 else 's'}** · " + " · ".join(f"[{c}](#{c.lower().replace(' ', '-')})" for c in categories)
         + " · Search this page with Ctrl+F (Cmd+F on a Mac).",
         "",
         "**Made one?** [List it here](catalog/README.md): it's a two-line file. Start from the "
