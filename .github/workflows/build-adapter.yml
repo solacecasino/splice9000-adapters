@@ -1,0 +1,97 @@
+# A reusable workflow for anyone's adapter repo. It builds the adapter and,
+# on a version tag, publishes a GitHub release with correctly named zips,
+# ready for splice9000 and the catalog. Script adapters get one zip; Rust
+# adapters get one per kind of computer (Mac, Windows and Linux, Intel/AMD and Arm).
+#
+# Use it from your repo (the template in this repo already does):
+#
+#   on:
+#     push:
+#       tags: ["v*"]
+#   jobs:
+#     release:
+#       uses: solacecasino/splice9000-adapters/.github/workflows/build-adapter.yml@main
+#       permissions:
+#         contents: write
+name: Build adapter
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Folder holding adapter.toml"
+        type: string
+        default: "."
+      name:
+        description: "Zip name prefix (default: the repo's name)"
+        type: string
+        default: ""
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        env:
+          ADAPTER_PATH: ${{ inputs.path }}
+        run: |
+          if [ -f "$ADAPTER_PATH/Cargo.toml" ]; then
+            echo 'matrix=["macos-latest","macos-15-intel","windows-latest","windows-11-arm","ubuntu-22.04","ubuntu-22.04-arm"]' >> "$GITHUB_OUTPUT"
+          else
+            echo 'matrix=["ubuntu-latest"]' >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: plan
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: solacecasino/splice9000-adapters
+          path: .splice9000-adapters
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - if: hashFiles(format('{0}/Cargo.toml', inputs.path)) != ''
+        uses: dtolnay/rust-toolchain@stable
+      - if: hashFiles(format('{0}/Cargo.toml', inputs.path)) != ''
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ${{ inputs.path }}
+      - name: Package
+        shell: bash
+        env:
+          ADAPTER_PATH: ${{ inputs.path }}
+          ADAPTER_NAME: ${{ inputs.name || github.event.repository.name }}
+        run: python .splice9000-adapters/scripts/build.py --root "$ADAPTER_PATH" --name "$ADAPTER_NAME"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adapter-${{ matrix.os }}
+          path: ${{ inputs.path }}/dist/*.zip
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.zip --repo "$GITHUB_REPOSITORY" \
+            --title "${GITHUB_REF_NAME}" --generate-notes

@@ -1,0 +1,32 @@
+# Your adapter. Change the name, then add commands, panels and export
+# formats. Everything here is explained in
+# https://github.com/solacecasino/splice9000/blob/main/docs/adapters.md
+name = "My Adapter"
+version = "0.1.0"                  # bump it, then push a tag like v0.1.0 to release
+author = "you"
+license = "MIT"
+description = "One sentence: what it adds to splice9000."
+homepage = "https://github.com/you/my-adapter"
+
+run = ["python3", "main.py"]
+permissions = ["edit.read"]        # also: "edit.change", "network"
+events = ["changed"]
+
+[[commands]]
+id = "count"
+label = "Count Clips"
+# keys = "cmd+alt+c"               # an optional default shortcut
+# menu = "edit"                    # optional: show it in File, Edit, View or Playback
+
+[[panels]]
+id = "stats"
+title = "Edit Stats"
+
+# Export formats need no code at all:
+# [[exports]]
+# id = "twitter"
+# label = "X / Twitter 720p"
+# extension = "mp4"
+# width = 1280
+# height = 720
+# video = ["-c:v", "libx264", "-crf", "23", "-pix_fmt", "yuv420p"]

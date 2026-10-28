@@ -1,0 +1,53 @@
+# Packs the adapters in this repo and, on a tag like v0.1.0, publishes them
+# as a release (then points the catalog at the new downloads). Run it by
+# hand to get the zips as artifacts without releasing.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test Scene Split with a real clip
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          python scripts/test_scene_split.py
+      # Only the adapters, not the template.
+      - name: Package
+        run: |
+          mkdir -p build && cp -R scene-split build/
+          python scripts/build.py --root build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adapters
+          path: dist/*
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* --title "splice9000 adapters ${GITHUB_REF_NAME#v}" --generate-notes
+          gh workflow run catalog.yml --ref main

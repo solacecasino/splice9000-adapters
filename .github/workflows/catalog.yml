@@ -1,0 +1,53 @@
+# Keeps CATALOG.md current, and checks catalog entries in pull requests.
+#
+# - Pull requests that touch catalog/: every entry's latest release is
+#   downloaded and checked the way splice9000 installs it.
+# - main, daily, and after each release here: CATALOG.md and catalog.json
+#   are rebuilt from everyone's latest releases and committed if they changed.
+name: Catalog
+
+on:
+  pull_request:
+    paths: ["catalog/**", "scripts/catalog.py"]
+  push:
+    branches: [main]
+    paths: ["catalog/**", "scripts/catalog.py"]
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/catalog.py --check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  build:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/catalog.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Commit if changed
+        run: |
+          git add CATALOG.md catalog.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update the catalog"
+          git push

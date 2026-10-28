@@ -1,0 +1,15 @@
+# Push a tag like v0.1.0 and this publishes a release with your adapter's
+# zip, named so splice9000 and the catalog understand it. Rust adapters
+# (with a Cargo.toml) get a zip for every kind of computer.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  release:
+    uses: solacecasino/splice9000-adapters/.github/workflows/build-adapter.yml@main
+    permissions:
+      contents: write

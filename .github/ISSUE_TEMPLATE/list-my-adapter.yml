@@ -1,0 +1,31 @@
+name: List my adapter
+description: Add your adapter to the splice9000 catalog (no pull request needed).
+title: "List adapter: "
+labels: ["catalog"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for making an adapter! Before you submit, make sure your repo is public and its
+        **latest release** has your zips, named `<adapter>-<version>-<platform>.zip` (or
+        `<adapter>-<version>.zip` for script adapters and presets). The
+        [template](https://github.com/solacecasino/splice9000-adapters/tree/main/template) does this for you.
+  - type: input
+    id: repo
+    attributes:
+      label: GitHub repo
+      placeholder: you/my-adapter
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [Editing, Export, Audio, Look, Tools, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: What it does, who it's for, what you'd like feedback on.

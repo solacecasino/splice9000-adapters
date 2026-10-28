@@ -1,0 +1,80 @@
+# When someone files "List my adapter", check their release and open the
+# pull request that adds it to the catalog, so listing needs no git at all.
+name: List adapter from issue
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: catalog-issue-${{ github.event.issue.number }}
+
+jobs:
+  list:
+    # A new issue from the form, or the label added again later to retry.
+    # (A form fires "labeled" right after "opened"; that duplicate is skipped.)
+    if: >-
+      (github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'catalog')) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'catalog' &&
+       github.event.issue.created_at != github.event.issue.updated_at)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Write the entry and check it
+        id: entry
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          file=$(python scripts/catalog_issue.py) || { echo "result=bad" >> "$GITHUB_OUTPUT"; exit 0; }
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+          if python scripts/catalog.py --check 2>&1 | tee check.txt; then
+            echo "result=ok" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=failed" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Open the pull request
+        if: steps.entry.outputs.result == 'ok'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FILE: ${{ steps.entry.outputs.file }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: |
+          branch="catalog/issue-$NUMBER"
+          if [ -n "$(gh pr list --head "$branch" --json number --jq '.[].number')" ]; then
+            echo "Already has a pull request"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add "catalog/$FILE"
+          git commit -m "List catalog/$FILE (#$NUMBER)"
+          git push -f origin "$branch"
+          url=$(gh pr create --head "$branch" --title "List catalog/$FILE" \
+            --body "Adds the adapter from #$NUMBER. Its latest release was downloaded and installs cleanly.")
+          gh issue comment "$NUMBER" --body "Your release checks out. The pull request to list it is $url; it goes live once it's merged."
+      - name: Explain what went wrong
+        if: steps.entry.outputs.result != 'ok'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: |
+          {
+            echo "This couldn't be listed yet:"
+            echo
+            echo '```'
+            grep -h -E "FAIL|doesn't|already" check.txt 2>/dev/null || echo "The GitHub repo field should be owner/name, like you/word-goals, and the entry must not exist yet."
+            echo '```'
+            echo
+            echo "Fix it (usually: publish a release with your zips), then remove and re-add the **catalog** label to try again. See catalog/README.md."
+          } > comment.md
+          gh issue comment "$NUMBER" --body-file comment.md

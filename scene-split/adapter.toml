@@ -1,0 +1,15 @@
+name = "Scene Split"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "Cuts a clip wherever the picture changes scene, using ffmpeg's scene detection."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/scene-split"
+
+run = ["python3", "main.py"]
+permissions = ["edit.read", "edit.change"]
+
+[[commands]]
+id = "split"
+label = "Split at Scene Changes"
+keys = "cmd+shift+k"
+menu = "edit"

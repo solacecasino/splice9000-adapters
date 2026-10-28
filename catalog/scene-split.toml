@@ -1,0 +1,6 @@
+# Listed in CATALOG.md. Name, version, permissions and downloads are read
+# from the latest release of `repo`.
+repo = "solacecasino/splice9000-adapters"
+adapter = "scene-split"
+category = "Editing"
+tags = ["scenes", "cuts", "split", "detect"]
