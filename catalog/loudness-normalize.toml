@@ -1,0 +1,6 @@
+# Listed in CATALOG.md. Name, version, permissions and downloads are read
+# from the latest release of `repo`.
+repo = "solacecasino/splice9000-adapters"
+adapter = "loudness-normalize"
+category = "Audio"
+tags = ["loudness", "LUFS", "normalize", "YouTube", "Spotify", "podcast", "EBU R128"]

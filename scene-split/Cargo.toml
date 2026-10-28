@@ -1,0 +1,15 @@
+[package]
+name = "scene-split"
+version = "0.2.0"
+edition = "2024"
+description = "A splice9000 adapter: cuts a clip wherever the picture changes scene."
+license = "MIT"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = "s"

@@ -1,0 +1,15 @@
+[package]
+name = "silence-cut"
+version = "0.1.0"
+edition = "2024"
+description = "A splice9000 adapter: removes the silent stretches from a clip."
+license = "MIT"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = "s"

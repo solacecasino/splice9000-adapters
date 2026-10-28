@@ -1,11 +1,15 @@
-# Packs the adapters in this repo and, on a tag like v0.1.0, publishes them
-# as a release (then points the catalog at the new downloads). Run it by
-# hand to get the zips as artifacts without releasing.
+# Builds and tests the adapters in this repo on every kind of computer
+# splice9000 runs on, and on a tag like v0.2.0 publishes them as a release
+# (then points the catalog at the new downloads). Compiled adapters get a
+# zip per platform; presets get one zip for all. Run it by hand to get the
+# zips as artifacts without releasing.
 name: Release
 
 on:
   push:
     tags: ["v*"]
+    branches: [main]
+    paths-ignore: ["CATALOG.md", "catalog.json"]
   workflow_dispatch:
 
 permissions:
@@ -14,24 +18,67 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-latest }
+          - { os: macos-15-intel }
+          - { os: windows-latest, ffmpeg: win64 }
+          - { os: windows-11-arm, ffmpeg: winarm64 }
+          - { os: ubuntu-22.04, presets: true }
+          - { os: ubuntu-22.04-arm }
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            scene-split
+            silence-cut
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Test Scene Split with a real clip
+      - name: ffmpeg
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg
-          python scripts/test_scene_split.py
-      # Only the adapters, not the template.
+          case "$RUNNER_OS" in
+            macOS) brew install ffmpeg ;;
+            Linux) sudo apt-get update && sudo apt-get install -y ffmpeg ;;
+            Windows)
+              mkdir -p ffmpeg && cd ffmpeg
+              gh release download latest --repo BtbN/FFmpeg-Builds -p "ffmpeg-master-latest-${{ matrix.ffmpeg }}-gpl.zip"
+              unzip -q ffmpeg-*.zip
+              echo "$(cygpath -w "$(echo $PWD/ffmpeg-*/bin)")" >> "$GITHUB_PATH" ;;
+          esac
+      - name: Unit tests
+        shell: bash
+        run: |
+          (cd scene-split && cargo test)
+          (cd silence-cut && cargo test)
       - name: Package
+        shell: bash
         run: |
-          mkdir -p build && cp -R scene-split build/
+          rm -rf build && mkdir build
+          # The Rust adapters include sdk/rust/splice.rs from beside them.
+          cp -R sdk scene-split silence-cut build/
+          # Presets run everywhere: one zip, made once.
+          if [ "${{ matrix.presets }}" = true ]; then cp -R loudness-normalize build/; fi
           python scripts/build.py --root build
+          ls dist
+      - name: Test the built programs as splice9000 runs them
+        shell: bash
+        run: |
+          exe=""; [ "$RUNNER_OS" = Windows ] && exe=.exe
+          python scripts/test_scene_split.py "build/scene-split/scene-split$exe"
+          python scripts/test_silence_cut.py "build/silence-cut/silence-cut$exe"
+          python scripts/test_loudness.py
       - uses: actions/upload-artifact@v4
         with:
-          name: adapters
+          name: adapters-${{ matrix.os }}
           path: dist/*
           if-no-files-found: error
 
@@ -49,5 +96,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/* --title "splice9000 adapters ${GITHUB_REF_NAME#v}" --generate-notes
+          ls -l dist
+          tag="${GITHUB_REF_NAME}"
+          notes="docs/releases/${tag}.md"
+          if [ -f "$notes" ]; then set -- --notes-file "$notes"; else set -- --generate-notes; fi
+          gh release create "$tag" dist/* --title "splice9000 adapters ${tag#v}" "$@"
           gh workflow run catalog.yml --ref main

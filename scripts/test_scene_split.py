@@ -1,11 +1,12 @@
 """Runs Scene Split the way splice9000 does, on a made-up clip with three
 scenes, and checks it cuts at the scene changes.
 
-    python3 scripts/test_scene_split.py
+    python3 scripts/test_scene_split.py <path to the scene-split program>
 """
 import json
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -16,8 +17,8 @@ subprocess.run([ffmpeg, "-v", "error", "-y", "-f", "lavfi", "-i", "testsrc2=s=64
                 "-filter_complex", "[1]trim=duration=2,setpts=PTS-STARTPTS[m];[0][m][2]concat=n=3:v=1:a=0",
                 "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p", str(clip)], check=True)
 
-folder = Path(__file__).resolve().parent.parent / "scene-split"
-p = subprocess.Popen(["python3", "main.py"], cwd=folder, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+program = str(Path(sys.argv[1]).resolve())
+p = subprocess.Popen([program], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 def send(m):
     p.stdin.write(json.dumps(m) + "\n")
     p.stdin.flush()

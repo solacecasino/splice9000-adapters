@@ -1,0 +1,32 @@
+# Export formats that level the sound to a loudness standard, so a video
+# sounds as loud as everything around it. Only presets: nothing of this
+# adapter runs. Needs splice9000 0.0.6 for `audio_filter`.
+name = "Loudness Normalize"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "Export formats that level the sound to the loudness YouTube, Spotify, podcasts and broadcast expect (−14, −16 and −23 LUFS)."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/loudness-normalize"
+requires = "0.0.6"
+
+[[exports]]
+id = "streaming"
+label = "Video, loudness for YouTube and Spotify (−14 LUFS)"
+extension = "mp4"
+audio_filter = "loudnorm=I=-14:TP=-1:LRA=11"
+audio = ["-c:a", "aac", "-b:a", "256k", "-ar", "48000"]
+
+[[exports]]
+id = "podcast"
+label = "Sound only, podcast loudness (−16 LUFS)"
+extension = "m4a"
+no_video = true
+audio_filter = "loudnorm=I=-16:TP=-1.5:LRA=11"
+audio = ["-c:a", "aac", "-b:a", "192k", "-ar", "48000"]
+
+[[exports]]
+id = "broadcast"
+label = "Video, broadcast loudness (EBU R128, −23 LUFS)"
+extension = "mp4"
+audio_filter = "loudnorm=I=-23:TP=-1:LRA=7"
+audio = ["-c:a", "aac", "-b:a", "256k", "-ar", "48000"]

@@ -31,9 +31,15 @@ SKIP = {"target", "src", "tests", "Cargo.toml", "Cargo.lock", ".gitignore", "__p
 
 
 def platform_name():
+    """Named for what cargo builds, not what Python reports: an Intel Python
+    on Windows on Arm says x64."""
     system = {"Darwin": "macos", "Windows": "windows", "Linux": "linux"}[platform.system()]
-    machine = platform.machine().lower()
-    arch = {"amd64": "x64", "x86_64": "x64", "aarch64": "arm64", "arm64": "arm64"}.get(machine, machine)
+    try:
+        host = subprocess.run(["rustc", "-vV"], capture_output=True, text=True, check=True).stdout
+        machine = re.search(r"^host: (\w+)", host, re.M).group(1)
+    except (OSError, subprocess.CalledProcessError, AttributeError):
+        machine = platform.machine().lower()
+    arch = {"amd64": "x64", "x86_64": "x64", "aarch64": "arm64", "arm64": "arm64"}.get(machine.lower(), machine)
     return f"{system}-{arch}"
 
 

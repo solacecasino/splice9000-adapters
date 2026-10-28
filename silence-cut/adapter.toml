@@ -1,0 +1,15 @@
+name = "Silence Cut"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "Removes the silent stretches from a clip (jump cuts for talking video), leaving a little room around words. One undo step."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/silence-cut"
+
+run = ["./silence-cut"]
+permissions = ["edit.read", "edit.change"]
+
+[[commands]]
+id = "cut"
+label = "Remove Silences"
+keys = "cmd+shift+j"
+menu = "edit"
