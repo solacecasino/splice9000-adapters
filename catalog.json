@@ -1,6 +1,48 @@
 {
   "adapters": [
     {
+      "id": "crossfades",
+      "name": "Crossfades",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "Blends picture and sound across a cut instead of cutting straight. Previewed as it will export; the edit's length doesn't change.",
+      "kind": "adapter",
+      "permissions": [
+        "edit.read",
+        "edit.change"
+      ],
+      "can": [
+        "see your edit",
+        "change your edit"
+      ],
+      "adds": [
+        "5 commands"
+      ],
+      "runs": true,
+      "requires": "0.0.7",
+      "category": "Editing",
+      "tags": [
+        "crossfade",
+        "dissolve",
+        "transition",
+        "fade",
+        "blend"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/crossfades",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/crossfades-0.1.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/crossfades-0.1.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/crossfades-0.1.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/crossfades-0.1.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/crossfades-0.1.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/crossfades-0.1.0-windows-x64.zip"
+      }
+    },
+    {
       "id": "loudness-normalize",
       "name": "Loudness Normalize",
       "version": "0.1.0",
@@ -30,7 +72,7 @@
       "stars": 0,
       "updated": "2026-10-28",
       "downloads": {
-        "all": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/loudness-normalize-0.1.0.zip"
+        "all": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/loudness-normalize-0.1.0.zip"
       }
     },
     {
@@ -66,12 +108,53 @@
       "stars": 0,
       "updated": "2026-10-28",
       "downloads": {
-        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-linux-arm64.zip",
-        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-linux-x64.zip",
-        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-macos-arm64.zip",
-        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-macos-x64.zip",
-        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-windows-arm64.zip",
-        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-windows-x64.zip"
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/scene-split-0.2.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/scene-split-0.2.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/scene-split-0.2.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/scene-split-0.2.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/scene-split-0.2.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/scene-split-0.2.0-windows-x64.zip"
+      }
+    },
+    {
+      "id": "shuttle",
+      "name": "Shuttle",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "J, K and L playback as in most editors: L plays, again for 2x, 4x, 8x; J the same backward; K stops.",
+      "kind": "adapter",
+      "permissions": [
+        "edit.read"
+      ],
+      "can": [
+        "see your edit"
+      ],
+      "adds": [
+        "3 commands"
+      ],
+      "runs": true,
+      "requires": "0.0.7",
+      "category": "Playback",
+      "tags": [
+        "J K L",
+        "shuttle",
+        "fast forward",
+        "reverse",
+        "playback",
+        "keys"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/shuttle",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/shuttle-0.1.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/shuttle-0.1.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/shuttle-0.1.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/shuttle-0.1.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/shuttle-0.1.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/shuttle-0.1.0-windows-x64.zip"
       }
     },
     {
@@ -108,12 +191,118 @@
       "stars": 0,
       "updated": "2026-10-28",
       "downloads": {
-        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-linux-arm64.zip",
-        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-linux-x64.zip",
-        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-macos-arm64.zip",
-        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-macos-x64.zip",
-        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-windows-arm64.zip",
-        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-windows-x64.zip"
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/silence-cut-0.1.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/silence-cut-0.1.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/silence-cut-0.1.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/silence-cut-0.1.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/silence-cut-0.1.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/silence-cut-0.1.0-windows-x64.zip"
+      }
+    },
+    {
+      "id": "snapping",
+      "name": "Snapping",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "The playhead snaps to cuts, and a clip's end to the playhead, while dragging on the timeline. Hold Alt (Option) to drag freely.",
+      "kind": "adapter",
+      "permissions": [],
+      "can": [],
+      "adds": [
+        "snapping on the timeline"
+      ],
+      "runs": false,
+      "requires": "0.0.7",
+      "category": "Timeline",
+      "tags": [
+        "snap",
+        "magnet",
+        "playhead",
+        "cuts",
+        "trim"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/snapping",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "all": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/snapping-0.1.0.zip"
+      }
+    },
+    {
+      "id": "thumbnails",
+      "name": "Thumbnails",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "Shows pictures from each clip along it on the timeline, so you can find a shot by sight. Made once per file and kept.",
+      "kind": "adapter",
+      "permissions": [
+        "edit.read"
+      ],
+      "can": [
+        "see your edit"
+      ],
+      "adds": [],
+      "runs": true,
+      "requires": "0.0.7",
+      "category": "Timeline",
+      "tags": [
+        "thumbnails",
+        "filmstrip",
+        "timeline",
+        "pictures"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/thumbnails",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/thumbnails-0.1.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/thumbnails-0.1.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/thumbnails-0.1.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/thumbnails-0.1.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/thumbnails-0.1.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/thumbnails-0.1.0-windows-x64.zip"
+      }
+    },
+    {
+      "id": "waveforms",
+      "name": "Waveforms",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "Draws each clip's sound on the timeline, so you can see words, beats and silences without playing. Worked out once per file and kept.",
+      "kind": "adapter",
+      "permissions": [
+        "edit.read"
+      ],
+      "can": [
+        "see your edit"
+      ],
+      "adds": [],
+      "runs": true,
+      "requires": "0.0.7",
+      "category": "Timeline",
+      "tags": [
+        "waveform",
+        "audio",
+        "timeline",
+        "sound",
+        "beats"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/waveforms",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/waveforms-0.1.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/waveforms-0.1.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/waveforms-0.1.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/waveforms-0.1.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/waveforms-0.1.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.3.0/waveforms-0.1.0-windows-x64.zip"
       }
     }
   ]
