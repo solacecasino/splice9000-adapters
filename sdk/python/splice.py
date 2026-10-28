@@ -105,7 +105,8 @@ def edit():
 
 
 def set_clips(clips):
-    """Replaces the timeline with these clips ({"media", "src_in", "src_out"}),
+    """Replaces the timeline with these clips ({"media", "src_in", "src_out"},
+    and "fade", seconds of crossfade from the clip before, from 0.0.7),
     as one step people can undo. Needs "edit.change"."""
     request("edit.set", clips=clips)
 
@@ -119,6 +120,12 @@ def import_media(paths, append=False):
 def seek(seconds):
     """Moves the playhead. Needs "edit.change"."""
     return request("playhead.set", time=seconds)
+
+
+def playback(rate):
+    """Plays at `rate`: 1 real time, 2 twice as fast, 0 stopped, below 0
+    backward (splice9000 0.0.7). Returns the rate it plays at."""
+    return request("playback.set", rate=rate)
 
 
 def notify(text):

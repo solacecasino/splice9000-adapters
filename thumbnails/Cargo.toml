@@ -1,0 +1,15 @@
+[package]
+name = "thumbnails"
+version = "0.1.0"
+edition = "2024"
+description = "A splice9000 adapter: shows pictures from each clip on the timeline."
+license = "MIT"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = "s"

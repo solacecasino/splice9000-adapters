@@ -1,0 +1,12 @@
+name = "Waveforms"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "Draws each clip's sound on the timeline, so you can see words, beats and silences without playing. Worked out once per file and kept."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/waveforms"
+requires = "0.0.7"
+
+run = ["./waveforms"]
+permissions = ["edit.read"]
+start = "launch"
+events = ["media"]

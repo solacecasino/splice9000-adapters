@@ -1,0 +1,6 @@
+# Listed in CATALOG.md. Name, version, permissions and downloads are read
+# from the latest release of `repo`. Comes with splice9000 0.0.7 too.
+repo = "solacecasino/splice9000-adapters"
+adapter = "snapping"
+category = "Timeline"
+tags = ["snap", "magnet", "playhead", "cuts", "trim"]

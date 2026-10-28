@@ -77,8 +77,8 @@ def read_manifest(data: bytes, zip_name: str, platform: str | None) -> dict:
     manifest["kind"] = "adapter"
     if not manifest.get("name"):
         raise Problem(f"{zip_name}: adapter.toml needs `name`")
-    if not manifest.get("run") and not manifest.get("exports"):
-        raise Problem(f"{zip_name}: adapter.toml needs a program to `run` or `[[exports]]`")
+    if not manifest.get("run") and not manifest.get("exports") and not manifest.get("snapping"):
+        raise Problem(f"{zip_name}: adapter.toml needs a program to `run`, `[[exports]]` or `[snapping]`")
     unknown = [p for p in manifest.get("permissions", []) if p not in PERMISSIONS]
     if unknown:
         raise Problem(f"{zip_name}: unknown permissions {unknown}")
@@ -101,6 +101,8 @@ def adds(m: dict) -> list[str]:
         n = len(m.get(key, []))
         if n:
             out.append(f"{n} {one if n == 1 else many}")
+    if m.get("snapping"):
+        out.append("snapping on the timeline")
     return out
 
 
@@ -186,7 +188,7 @@ def render(adapters: list[dict]) -> str:
                 if missing:
                     links += f" (not yet for {', '.join(missing)})"
             if not a["runs"]:
-                can = "Presets only: nothing of it runs"
+                can = "Presets only: nothing of it runs" if a["adds"] and "export format" in a["adds"][-1] else "Nothing of it runs"
             else:
                 can = "Can " + (", ".join(a["can"]) or "nothing beyond its own commands, panels and formats")
             if a["adds"]:

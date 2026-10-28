@@ -1,0 +1,28 @@
+name = "Shuttle"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "J, K and L playback as in most editors: L plays, again for 2x, 4x, 8x; J the same backward; K stops."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/shuttle"
+requires = "0.0.7"
+
+run = ["./shuttle"]
+permissions = ["edit.read"]
+
+[[commands]]
+id = "back"
+label = "Play Backward (Faster Each Press)"
+keys = "j"
+menu = "playback"
+
+[[commands]]
+id = "stop"
+label = "Stop"
+keys = "k"
+menu = "playback"
+
+[[commands]]
+id = "forward"
+label = "Play Forward (Faster Each Press)"
+keys = "l"
+menu = "playback"

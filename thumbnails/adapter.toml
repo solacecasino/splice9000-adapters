@@ -1,0 +1,12 @@
+name = "Thumbnails"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "Shows pictures from each clip along it on the timeline, so you can find a shot by sight. Made once per file and kept."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/thumbnails"
+requires = "0.0.7"
+
+run = ["./thumbnails"]
+permissions = ["edit.read"]
+start = "launch"
+events = ["media"]

@@ -33,6 +33,11 @@ see [catalog/README.md](catalog/README.md).
 
 | Adapter | Adds | Built with |
 |---|---|---|
+| [waveforms](waveforms) | Each clip's sound drawn on the timeline. Worked out once per file and kept. | Rust, ffmpeg |
+| [thumbnails](thumbnails) | Pictures from each clip along it on the timeline. Made once per file and kept. | Rust, ffmpeg |
+| [shuttle](shuttle) | **J / K / L** playback: L plays, again for 2x, 4x, 8x; J the same backward; K stops. | Rust |
+| [snapping](snapping) | The playhead snaps to cuts, and a clip's end to the playhead, while dragging. Hold Alt to drag freely. | Settings only |
+| [crossfades](crossfades) | **Edit → Crossfade at Nearest Cut** (⌘D) and friends: picture and sound blend across a cut. Previewed as it exports. | Rust |
 | [silence-cut](silence-cut) | **Edit → Remove Silences** (⌘⇧J): takes the silent stretches out of a clip, leaving room around words. Jump cuts for talking video, one undo step. | Rust, ffmpeg's silencedetect |
 | [loudness-normalize](loudness-normalize) | Export formats leveled to −14 LUFS (YouTube, Spotify), −16 LUFS (podcasts) or −23 LUFS (broadcast). Needs splice9000 0.0.6. | Presets only |
 | [scene-split](scene-split) | **Edit → Split at Scene Changes** (⌘⇧K): cuts a clip wherever the picture changes scene. One undo step. | Rust, ffmpeg's scene detection |
@@ -40,7 +45,13 @@ see [catalog/README.md](catalog/README.md).
 The compiled ones come for Mac (Apple Silicon and Intel), Windows (x64 and
 Arm) and Linux (x64 and Arm), and need nothing else installed.
 
-Two more come built into splice9000 itself, and can be removed there:
+**The first five come with splice9000** (0.0.7 and later), built from this
+repo, so its editing tools are adapters like any other: remove one in
+splice9000's Adapters panel and it's gone entirely (nothing of it runs);
+**Add Back** returns it, or install a newer version from here, which takes
+over from the built-in one. They need splice9000 0.0.7.
+
+Two more are built into splice9000 itself:
 **Export Presets** (YouTube, vertical, square, GIF, ProRes, WebM, sound only)
 and **Frame Grab** (save the frame under the playhead as a PNG). Their
 sources are in [splice9000/adapters](https://github.com/solacecasino/splice9000/tree/main/adapters).

@@ -57,16 +57,16 @@ jobs:
       - name: Unit tests
         shell: bash
         run: |
-          (cd scene-split && cargo test)
-          (cd silence-cut && cargo test)
+          for a in scene-split silence-cut waveforms thumbnails shuttle crossfades; do (cd $a && cargo test); done
       - name: Package
         shell: bash
         run: |
           rm -rf build && mkdir build
           # The Rust adapters include sdk/rust/splice.rs from beside them.
-          cp -R sdk scene-split silence-cut build/
-          # Presets run everywhere: one zip, made once.
-          if [ "${{ matrix.presets }}" = true ]; then cp -R loudness-normalize build/; fi
+          cp -R sdk scene-split silence-cut waveforms thumbnails shuttle crossfades build/
+          # Presets (and other adapters with no program) run everywhere: one
+          # zip, made once.
+          if [ "${{ matrix.presets }}" = true ]; then cp -R loudness-normalize snapping build/; fi
           python scripts/build.py --root build
           ls dist
       - name: Test the built programs as splice9000 runs them
@@ -76,6 +76,7 @@ jobs:
           python scripts/test_scene_split.py "build/scene-split/scene-split$exe"
           python scripts/test_silence_cut.py "build/silence-cut/silence-cut$exe"
           python scripts/test_loudness.py
+          python scripts/test_editing.py build
       - uses: actions/upload-artifact@v4
         with:
           name: adapters-${{ matrix.os }}

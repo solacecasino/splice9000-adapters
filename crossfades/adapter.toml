@@ -1,0 +1,37 @@
+name = "Crossfades"
+version = "0.1.0"
+author = "splice9000"
+license = "MIT"
+description = "Blends picture and sound across a cut instead of cutting straight. Previewed as it will export; the edit's length doesn't change."
+homepage = "https://github.com/solacecasino/splice9000-adapters/tree/main/crossfades"
+requires = "0.0.7"
+
+run = ["./crossfades"]
+permissions = ["edit.read", "edit.change"]
+
+[[commands]]
+id = "add"
+label = "Crossfade at Nearest Cut"
+keys = "cmd+d"
+menu = "edit"
+
+[[commands]]
+id = "remove"
+label = "Remove Crossfade at Nearest Cut"
+keys = "cmd+shift+d"
+menu = "edit"
+
+[[commands]]
+id = "all"
+label = "Crossfade Every Cut"
+menu = "edit"
+
+[[commands]]
+id = "none"
+label = "Remove All Crossfades"
+menu = "edit"
+
+[[commands]]
+id = "length"
+label = "Crossfade Length…"
+menu = "edit"
