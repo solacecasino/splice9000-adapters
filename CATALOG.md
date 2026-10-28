@@ -4,7 +4,7 @@ Add-ons for [splice9000](https://github.com/solacecasino/splice9000). Pick one, 
 computer, then **drop it on the splice9000 window**. splice9000 shows what an adapter can do and
 asks before installing it. Remove it any time from the Adapters panel.
 
-**1 adapters** · [Editing](#editing) · Search this page with Ctrl+F (Cmd+F on a Mac).
+**1 adapter** · [Editing](#editing) · Search this page with Ctrl+F (Cmd+F on a Mac).
 
 **Made one?** [List it here](catalog/README.md): it's a two-line file. Start from the [template](template) to get downloads for every platform.
 
