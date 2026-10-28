@@ -145,6 +145,8 @@ def load_entry(path: Path, check: bool) -> dict:
         # Plain words for what it may do.
         "can": [PERMISSIONS[p] for p in manifest.get("permissions", [])],
         "adds": adds(manifest),
+        "runs": bool(manifest.get("run")),
+        "requires": manifest.get("requires", ""),
         "category": entry.get("category", "Other"),
         "tags": entry.get("tags", []),
         "repo": repo,
@@ -183,9 +185,14 @@ def render(adapters: list[dict]) -> str:
                 missing = [label for p, label in PLATFORMS.items() if p not in a["downloads"]]
                 if missing:
                     links += f" (not yet for {', '.join(missing)})"
-            can = ", ".join(a["can"]) or "nothing beyond its own commands, panels and formats"
+            if not a["runs"]:
+                can = "Presets only: nothing of it runs"
+            else:
+                can = "Can " + (", ".join(a["can"]) or "nothing beyond its own commands, panels and formats")
             if a["adds"]:
                 can += ". Adds " + ", ".join(a["adds"])
+            if a["requires"]:
+                can += f". Needs splice9000 {a['requires']} or newer"
             meta = [f"v{a['version']}"]
             if a["author"]:
                 meta.append(f"by {a['author']}")
@@ -204,7 +211,7 @@ def render(adapters: list[dict]) -> str:
                 "",
                 links,
                 "",
-                f"Can {can}. " + " · ".join(meta),
+                f"{can}. " + " · ".join(meta),
                 "",
             ]
     out += [
