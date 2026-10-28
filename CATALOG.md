@@ -16,7 +16,7 @@ Export formats that level the sound to the loudness YouTube, Spotify, podcasts a
 
 [**Download** (every platform)](https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/loudness-normalize-0.1.0.zip)
 
-Can nothing beyond its own commands, panels and formats. Adds 3 export formats. v0.1.0 · by splice9000 · MIT · [source and help](https://github.com/solacecasino/splice9000-adapters/tree/main/loudness-normalize) · updated 2026-10-28
+Presets only: nothing of it runs. Adds 3 export formats. Needs splice9000 0.0.6 or newer. v0.1.0 · by splice9000 · MIT · [source and help](https://github.com/solacecasino/splice9000-adapters/tree/main/loudness-normalize) · updated 2026-10-28
 
 ## Editing
 

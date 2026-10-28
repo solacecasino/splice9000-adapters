@@ -13,6 +13,8 @@
       "adds": [
         "3 export formats"
       ],
+      "runs": false,
+      "requires": "0.0.6",
       "category": "Audio",
       "tags": [
         "loudness",
@@ -50,6 +52,8 @@
       "adds": [
         "1 command"
       ],
+      "runs": true,
+      "requires": "",
       "category": "Editing",
       "tags": [
         "scenes",
@@ -89,6 +93,8 @@
       "adds": [
         "1 command"
       ],
+      "runs": true,
+      "requires": "",
       "category": "Editing",
       "tags": [
         "silence",
