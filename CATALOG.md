@@ -4,9 +4,19 @@ Add-ons for [splice9000](https://github.com/solacecasino/splice9000). Pick one, 
 computer, then **drop it on the splice9000 window**. splice9000 shows what an adapter can do and
 asks before installing it. Remove it any time from the Adapters panel.
 
-**0 adapters** ·  · Search this page with Ctrl+F (Cmd+F on a Mac).
+**1 adapters** · [Editing](#editing) · Search this page with Ctrl+F (Cmd+F on a Mac).
 
 **Made one?** [List it here](catalog/README.md): it's a two-line file. Start from the [template](template) to get downloads for every platform.
+
+## Editing
+
+### Scene Split
+
+Cuts a clip wherever the picture changes scene, using ffmpeg's scene detection.
+
+[**Download** (every platform)](https://github.com/solacecasino/splice9000-adapters/releases/download/v0.1.0/scene-split-0.1.0.zip)
+
+Can see your edit, change your edit. Adds 1 command. v0.1.0 · by splice9000 · MIT · [source and help](https://github.com/solacecasino/splice9000-adapters/tree/main/scene-split) · updated 2026-10-28
 
 ---
 

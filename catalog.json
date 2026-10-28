@@ -1,3 +1,38 @@
 {
-  "adapters": []
+  "adapters": [
+    {
+      "id": "scene-split",
+      "name": "Scene Split",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "Cuts a clip wherever the picture changes scene, using ffmpeg's scene detection.",
+      "kind": "adapter",
+      "permissions": [
+        "edit.read",
+        "edit.change"
+      ],
+      "can": [
+        "see your edit",
+        "change your edit"
+      ],
+      "adds": [
+        "1 command"
+      ],
+      "category": "Editing",
+      "tags": [
+        "scenes",
+        "cuts",
+        "split",
+        "detect"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/scene-split",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "all": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.1.0/scene-split-0.1.0.zip"
+      }
+    }
+  ]
 }
