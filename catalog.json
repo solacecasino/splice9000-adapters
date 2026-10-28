@@ -1,12 +1,43 @@
 {
   "adapters": [
     {
-      "id": "scene-split",
-      "name": "Scene Split",
+      "id": "loudness-normalize",
+      "name": "Loudness Normalize",
       "version": "0.1.0",
       "author": "splice9000",
       "license": "MIT",
-      "description": "Cuts a clip wherever the picture changes scene, using ffmpeg's scene detection.",
+      "description": "Export formats that level the sound to the loudness YouTube, Spotify, podcasts and broadcast expect (−14, −16 and −23 LUFS).",
+      "kind": "adapter",
+      "permissions": [],
+      "can": [],
+      "adds": [
+        "3 export formats"
+      ],
+      "category": "Audio",
+      "tags": [
+        "loudness",
+        "LUFS",
+        "normalize",
+        "YouTube",
+        "Spotify",
+        "podcast",
+        "EBU R128"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/loudness-normalize",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "all": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/loudness-normalize-0.1.0.zip"
+      }
+    },
+    {
+      "id": "scene-split",
+      "name": "Scene Split",
+      "version": "0.2.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "Cuts a clip wherever the picture changes scene, using ffmpeg's scene detection. One undo step.",
       "kind": "adapter",
       "permissions": [
         "edit.read",
@@ -31,7 +62,52 @@
       "stars": 0,
       "updated": "2026-10-28",
       "downloads": {
-        "all": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.1.0/scene-split-0.1.0.zip"
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/scene-split-0.2.0-windows-x64.zip"
+      }
+    },
+    {
+      "id": "silence-cut",
+      "name": "Silence Cut",
+      "version": "0.1.0",
+      "author": "splice9000",
+      "license": "MIT",
+      "description": "Removes the silent stretches from a clip (jump cuts for talking video), leaving a little room around words. One undo step.",
+      "kind": "adapter",
+      "permissions": [
+        "edit.read",
+        "edit.change"
+      ],
+      "can": [
+        "see your edit",
+        "change your edit"
+      ],
+      "adds": [
+        "1 command"
+      ],
+      "category": "Editing",
+      "tags": [
+        "silence",
+        "jump cut",
+        "talking head",
+        "podcast",
+        "trim"
+      ],
+      "repo": "solacecasino/splice9000-adapters",
+      "homepage": "https://github.com/solacecasino/splice9000-adapters/tree/main/silence-cut",
+      "stars": 0,
+      "updated": "2026-10-28",
+      "downloads": {
+        "linux-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-linux-arm64.zip",
+        "linux-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-linux-x64.zip",
+        "macos-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-macos-arm64.zip",
+        "macos-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-macos-x64.zip",
+        "windows-arm64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-windows-arm64.zip",
+        "windows-x64": "https://github.com/solacecasino/splice9000-adapters/releases/download/v0.2.0/silence-cut-0.1.0-windows-x64.zip"
       }
     }
   ]
